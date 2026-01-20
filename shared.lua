@@ -38,9 +38,10 @@ function shared_init()
 
   if state.volume_muted then sfx.volume = 0 end
   if state.music_muted then music.volume = 0 end
-
-  fat_font = Font('FatPixelFont', 8)
-  pixul_font = Font('PixulBrush', 8)
+  
+  fat_font = Font('Deng', 14)
+  pixul_font = Font('Deng', 14)
+  
   background_canvas = Canvas(gw, gh)
   main_canvas = Canvas(gw, gh, {stencil = true})
   shadow_canvas = Canvas(gw, gh)

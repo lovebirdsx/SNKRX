@@ -1,3 +1,5 @@
+local utf8 = require("utf8")
+
 -- A generic text object.
 -- It implements a character based tagging system which should allow you to implement any kind of text effect possible, from setting a character's color to making it become visible, shake and play sounds.
 -- You would use it like this:
@@ -170,12 +172,12 @@ function Text:parse(text_data)
     local tags = {}
     for i, tags_text, j in line.text:gmatch("()%[(.-)%]()") do
       if tags_text == "" then
-        table.insert(tags, {i = tonumber(i), j = tonumber(j)-1})
+        table.insert(tags, {i = tonumber(i), j = tonumber(j)})
         line.tags = tags
       else
         local local_tags = {}
         for tag in tags_text:gmatch("[%w_]+") do table.insert(local_tags, tag) end
-        table.insert(tags, {i = tonumber(i), j = tonumber(j)-1, tags = local_tags})
+        table.insert(tags, {i = tonumber(i), j = tonumber(j), tags = local_tags})
         line.tags = tags
       end
     end
@@ -185,11 +187,14 @@ function Text:parse(text_data)
   for _, line in ipairs(text_data) do
     line.characters = {}
     local current_tags = nil
-    for i = 1, #line.text do
-      local c = line.text:sub(i, i)
+    
+    -- 使用 utf8.codes 进行迭代
+    for pos, code in utf8.codes(line.text) do
+      local c = utf8.char(code)
+
       local inside_tags = false
       for _, tag in ipairs(line.tags) do
-        if i >= tag.i and i <= tag.j then
+        if pos >= tag.i and pos < tag.j then
           inside_tags = true
           current_tags = tag.tags
           break

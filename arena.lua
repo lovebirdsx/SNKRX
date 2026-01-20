@@ -249,8 +249,8 @@ function Arena:on_enter(from, level, loop, units, passives, shop_level, shop_xp,
   end
 
   if self.level == 1 then
-    local t1 = Text2{group = self.floor, x = gw/2, y = gh/2 + 2, sx = 0.6, sy = 0.6, lines = {{text = '[light_bg]wasd or arrows', font = fat_font, alignment = 'center'}}}
-    local t2 = Text2{group = self.floor, x = gw/2, y = gh/2 + 18, lines = {{text = '[light_bg]four directional movement', font = pixul_font, alignment = 'center'}}}
+    local t1 = Text2{group = self.floor, x = gw/2, y = gh/2 + 2, sx = 0.6, sy = 0.6, lines = {{text = '[light_bg]<- or a         -> or d', font = fat_font, alignment = 'center'}}}
+    local t2 = Text2{group = self.floor, x = gw/2, y = gh/2 + 18, lines = {{text = '[light_bg]turn left                                      turn right', font = pixul_font, alignment = 'center'}}}
     local t3 = Text2{group = self.floor, x = gw/2, y = gh/2 + 46, sx = 0.6, sy = 0.6, lines = {{text = '[light_bg]esc - options', font = fat_font, alignment = 'center'}}}
     t1.t:after(8, function() t1.t:tween(0.2, t1, {sy = 0}, math.linear, function() t1.sy = 0 end) end)
     t2.t:after(8, function() t2.t:tween(0.2, t2, {sy = 0}, math.linear, function() t2.sy = 0 end) end)
@@ -480,8 +480,8 @@ function Arena:quit()
             {text = "[wavy_mid, yellow]thanks for playing!", font = pixul_font, alignment = 'center'},
           }}
           SteamFollowButton{group = self.ui, x = gw/2 + 40, y = gh/2 + 58, force_update = true}
-          Button{group = self.ui, x = gw - 40, y = gh - 44, force_update = true, button_text = 'credits', fg_color = 'bg10', bg_color = 'bg', action = function() self:create_credits() end}
-          Button{group = self.ui, x = gw - 39, y = gh - 20, force_update = true, button_text = '  loop  ', fg_color = 'bg10', bg_color = 'bg', action = function() self:endless() end}
+          Button{group = self.ui, x = gw - 40, y = gh - 44, force_update = true, button_text = '致谢名单', fg_color = 'bg10', bg_color = 'bg', action = function() self:create_credits() end}
+          Button{group = self.ui, x = gw - 39, y = gh - 20, force_update = true, button_text = '  循环  ', fg_color = 'bg10', bg_color = 'bg', action = function() self:endless() end}
           self.try_loop_text = Text2{group = self.ui, x = gw - 144, y = gh - 20, force_update = true, lines = {
             {text = '[bg10]continue run (+difficulty):', font = pixul_font},
           }}
@@ -507,7 +507,7 @@ function Arena:quit()
           ]]--
           SteamFollowButton{group = self.ui, x = gw/2 + 40, y = gh/2 - 10, force_update = true}
           Button{group = self.ui, x = gw/2 + 40, y = gh/2 + 33, force_update = true, button_text = 'buy the soundtrack!', fg_color = 'greenm5', bg_color = 'green', action = function(b) open_url(b, 'https://kubbimusic.com/album/ember') end}
-          Button{group = self.ui, x = gw - 40, y = gh - 44, force_update = true, button_text = '  loop  ', fg_color = 'bg10', bg_color = 'bg', action = function() self:endless() end}
+          Button{group = self.ui, x = gw - 40, y = gh - 44, force_update = true, button_text = '  循环  ', fg_color = 'bg10', bg_color = 'bg', action = function() self:endless() end}
           RestartButton{group = self.ui, x = gw - 40, y = gh - 20, force_update = true}
           self.try_loop_text = Text2{group = self.ui, x = gw - 200, y = gh - 44, force_update = true, lines = {
             {text = '[bg10]continue run (+difficulty, +1 max snake size):', font = pixul_font},
@@ -515,7 +515,7 @@ function Arena:quit()
           self.try_ng_text = Text2{group = self.ui, x = gw - 187, y = gh - 20, force_update = true, lines = {
             {text = '[bg10]new run (+difficulty, +1 max snake size):', font = pixul_font},
           }}
-          self.credits_button = Button{group = self.ui, x = gw - 40, y = gh - 68, force_update = true, button_text = 'credits', fg_color = 'bg10', bg_color = 'bg', action = function() self:create_credits() end}
+          self.credits_button = Button{group = self.ui, x = gw - 40, y = gh - 68, force_update = true, button_text = '致谢名单', fg_color = 'bg10', bg_color = 'bg', action = function() self:create_credits() end}
         end
       end)
 
@@ -776,7 +776,7 @@ function Arena:draw()
   if self.boss_level then
     if self.start_time <= 0 then
       graphics.push(self.x2 - 106, self.y1 - 10, 0, self.hfx.condition2.x, self.hfx.condition2.x)
-        graphics.print_centered('kill the elite', fat_font, self.x2 - 106, self.y1 - 10, 0, 0.6, 0.6, nil, nil, fg[0])
+        graphics.print_centered('击杀精英', fat_font, self.x2 - 106, self.y1 - 10, 0, 1, 1, nil, nil, fg[0])
       graphics.pop()
     end
   else
@@ -784,12 +784,12 @@ function Arena:draw()
       if self.win_condition == 'wave' then
         if self.start_time <= 0 then
           graphics.push(self.x2 - 50, self.y1 - 10, 0, self.hfx.condition2.x, self.hfx.condition2.x)
-            graphics.print_centered('wave:', fat_font, self.x2 - 50, self.y1 - 10, 0, 0.6, 0.6, nil, nil, fg[0])
+            graphics.print_centered('波次:', fat_font, self.x2 - 50, self.y1 - 10, 0, 1, 1, nil, nil, fg[0])
           graphics.pop()
           local wave = self.wave
           if wave > self.max_waves then wave = self.max_waves end
           graphics.push(self.x2 - 25 + fat_font:get_text_width(wave .. '/' .. self.max_waves)/2, self.y1 - 8, 0, self.hfx.condition1.x, self.hfx.condition1.x)
-            graphics.print(wave .. '/' .. self.max_waves, fat_font, self.x2 - 25, self.y1 - 8, 0, 0.75, 0.75, nil, fat_font.h/2, self.hfx.condition1.f and fg[0] or yellow[0])
+            graphics.print(wave .. '/' .. self.max_waves, fat_font, self.x2 - 25, self.y1 - 8, 0, 1, 1, nil, fat_font.h/2, self.hfx.condition1.f and fg[0] or yellow[0])
           graphics.pop()
         end
       end
@@ -823,11 +823,11 @@ function Arena:die()
     self.t:tween(2, self, {main_slow_amount = 0}, math.linear, function() self.main_slow_amount = 0 end)
     self.t:tween(2, _G, {music_slow_amount = 0}, math.linear, function() music_slow_amount = 0 end)
     self.died_text = Text2{group = self.ui, x = gw/2, y = gh/2 - 32, lines = {
-      {text = '[wavy_mid, cbyc]you died...', font = fat_font, alignment = 'center', height_multiplier = 1.25},
+      {text = '[wavy_mid, cbyc]你死了...', font = fat_font, alignment = 'center', height_multiplier = 1.25},
     }}
     trigger:tween(2, camera, {x = gw/2, y = gh/2, r = 0}, math.linear, function() camera.x, camera.y, camera.r = gw/2, gh/2, 0 end)
     self.t:after(2, function()
-      self.build_text = Text2{group = self.ui, x = 40, y = 20, force_update = true, lines = {{text = "[wavy_mid, fg]your build", font = pixul_font, alignment = 'center'}}}
+      self.build_text = Text2{group = self.ui, x = 40, y = 20, force_update = true, lines = {{text = "[wavy_mid, fg]你的配置", font = pixul_font, alignment = 'center'}}}
       for i, unit in ipairs(self.units) do
         CharacterPart{group = self.ui, x = 20, y = 40 + (i-1)*19, character = unit.character, level = unit.level, force_update = true, cant_click = true, parent = self}
         Text2{group = self.ui, x = 20 + 14 + pixul_font:get_text_width(unit.character)/2, y = 40 + (i-1)*19, force_update = true, lines = {
@@ -838,9 +838,9 @@ function Arena:die()
         ItemCard{group = self.ui, x = 120 + (i-1)*30, y = 30, w = 30, h = 45, sx = 0.75, sy = 0.75, force_update = true, passive = passive.passive , level = passive.level, xp = passive.xp, parent = self}
       end
       self.death_info_text = Text2{group = self.ui, x = gw/2, y = gh/2, sx = 0.7, sy = 0.7, lines = {
-        {text = '[wavy_mid, fg]level reached: [wavy_mid, yellow]' .. self.level, font = fat_font, alignment = 'center'},
+        {text = '[wavy_mid, fg]达到关卡: [wavy_mid, yellow]' .. self.level, font = fat_font, alignment = 'center'},
       }}
-      self.restart_button = Button{group = self.ui, x = gw/2, y = gh/2 + 24, force_update = true, button_text = 'restart run (r)', fg_color = 'bg10', bg_color = 'bg', action = function(b)
+      self.restart_button = Button{group = self.ui, x = gw/2, y = gh/2 + 24, force_update = true, button_text = '重新开始 (r)', fg_color = 'bg10', bg_color = 'bg', action = function(b)
         self.transitioning = true
         ui_transition2:play{pitch = random:float(0.95, 1.05), volume = 0.5}
         ui_switch2:play{pitch = random:float(0.95, 1.05), volume = 0.5}

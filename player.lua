@@ -882,7 +882,7 @@ function Player:init(args)
   if self.ouroboros_technique_r then
     self.t:after(0.01, function()
       self.t:every((self.ouroboros_technique_r == 1 and 0.5) or (self.ouroboros_technique_r == 2 and 0.33) or (self.ouroboros_technique_r == 3 and 0.25), function()
-        if self.leader and input.move_right.down then
+        if self.leader and (state.mouse_control and table.all(self.mouse_control_v_buffer, function(v) return v >= 0.5 end)) or (self.move_right_pressed and love.timer.getTime() - self.move_right_pressed > 1) then
           local target = self:get_closest_object_in_shape(Circle(self.x, self.y, 96), main.current.enemies)
           if target then
             local units = self:get_all_units()
@@ -1270,7 +1270,7 @@ function Player:update(dt)
 
   if self.ouroboros_technique_l and self.leader then
     local units = self:get_all_units()
-    if input.move_left.down then
+    if (state.mouse_control and table.all(self.mouse_control_v_buffer, function(v) return v <= -0.5 end)) or (self.move_left_pressed and love.timer.getTime() - self.move_left_pressed > 1) then
       for _, unit in ipairs(units) do
         unit.ouroboros_def_m = (self.ouroboros_technique_l == 1 and 1.15) or (self.ouroboros_technique_l == 2 and 1.25) or (self.ouroboros_technique_l == 3 and 1.35)
       end
@@ -1350,16 +1350,19 @@ function Player:update(dt)
 
   if self.leader then
     if not main.current:is(MainMenu) then
-      -- 四方向控制
-      local dx, dy = 0, 0
-      if input.move_left.down then dx = dx - 1 end
-      if input.move_right.down then dx = dx + 1 end
-      if input.move_up.down then dy = dy - 1 end
-      if input.move_down.down then dy = dy + 1 end
+      if input.move_left.pressed and not self.move_right_pressed then self.move_left_pressed = love.timer.getTime() end
+      if input.move_right.pressed and not self.move_left_pressed then self.move_right_pressed = love.timer.getTime() end
+      if input.move_left.released then self.move_left_pressed = nil end
+      if input.move_right.released then self.move_right_pressed = nil end
 
-      -- 如果有输入，更新角色朝向
-      if dx ~= 0 or dy ~= 0 then
-        self.r = math.atan2(dy, dx)
+      if state.mouse_control then
+        self.mouse_control_v = Vector(math.cos(self.r), math.sin(self.r)):perpendicular():dot(Vector(math.cos(self:angle_to_mouse()), math.sin(self:angle_to_mouse())))
+        self.r = self.r + math.sign(self.mouse_control_v)*1.66*math.pi*dt
+        table.insert(self.mouse_control_v_buffer, 1, self.mouse_control_v)
+        if #self.mouse_control_v_buffer > 64 then self.mouse_control_v_buffer[65] = nil end
+      else
+        if input.move_left.down then self.r = self.r - 1.66*math.pi*dt end
+        if input.move_right.down then self.r = self.r + 1.66*math.pi*dt end
       end
     end
 
@@ -1380,14 +1383,13 @@ function Player:update(dt)
         local vd = math.remap(math.abs(self.y - gh/2), 0, 108, 1, 0)
         camera.x = camera.x + math.remap(vx, -100, 100, -24*hd, 24*hd)*dt
         camera.y = camera.y + math.remap(vy, -100, 100, -8*vd, 8*vd)*dt
-        -- 相机稍微倾斜
-        if input.move_right.down and not input.move_left.down then 
-          camera.r = math.lerp_angle_dt(0.01, dt, camera.r, math.pi/256)
-        elseif input.move_left.down and not input.move_right.down then 
-          camera.r = math.lerp_angle_dt(0.01, dt, camera.r, -math.pi/256)
-        else 
-          camera.r = math.lerp_angle_dt(0.005, dt, camera.r, 0) 
-        end
+        if input.move_right.down then camera.r = math.lerp_angle_dt(0.01, dt, camera.r, math.pi/256)
+        elseif input.move_left.down then camera.r = math.lerp_angle_dt(0.01, dt, camera.r, -math.pi/256)
+          --[[
+        elseif input.move_down.down then camera.r = math.lerp_angle_dt(0.01, dt, camera.r, math.pi/256)
+        elseif input.move_up.down then camera.r = math.lerp_angle_dt(0.01, dt, camera.r, -math.pi/256)
+        ]]--
+        else camera.r = math.lerp_angle_dt(0.005, dt, camera.r, 0) end
       end
     end
 
