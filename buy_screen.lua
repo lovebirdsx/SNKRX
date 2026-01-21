@@ -1866,7 +1866,7 @@ function TutorialClassIcon:on_mouse_enter()
     ['forcer'] = '推击者',
     ['swarmer'] = '蜂群者',
     ['voider'] = '虚空使者',
-    ['sorcerer'] = '术师',
+    ['sorcerer'] = '术士',
     ['mercenary'] = '佣兵',
     ['explorer'] = '探险家',
   }
@@ -2047,7 +2047,7 @@ function ClassIcon:on_mouse_enter()
     ['forcer'] = '推击者',
     ['swarmer'] = '蜂群者',
     ['voider'] = '虚空使者',
-    ['sorcerer'] = '术师',
+    ['sorcerer'] = '术士',
     ['mercenary'] = '佣兵',
     ['explorer'] = '探险家',
   }
