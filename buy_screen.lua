@@ -1845,31 +1845,30 @@ function TutorialClassIcon:draw()
   graphics.pop()
 end
 
+-- 职业名称中文翻译
+local class_name_map = {
+  ['warrior'] = '战士',
+  ['ranger'] = '游侠',
+  ['healer'] = '治疗者',
+  ['mage'] = '法师',
+  ['nuker'] = '爆破者',
+  ['conjurer'] = '建造者',
+  ['rogue'] = '盗贼',
+  ['enchanter'] = '附魔师',
+  ['psyker'] = '灵能者',
+  ['curser'] = '诅咒者',
+  ['forcer'] = '推击者',
+  ['swarmer'] = '蜂群者',
+  ['voider'] = '虚空使者',
+  ['sorcerer'] = '术士',
+  ['mercenary'] = '佣兵',
+  ['explorer'] = '探险家',
+}
 
 function TutorialClassIcon:on_mouse_enter()
   ui_hover1:play{pitch = random:float(1.3, 1.5), volume = 0.5}
   self.spring:pull(0.2, 200, 10)
   local i, j, k, owned = class_set_numbers[self.class](self.units)
-  
-  -- 职业名称中文翻译
-  local class_name_map = {
-    ['warrior'] = '战士',
-    ['ranger'] = '游侠',
-    ['healer'] = '治疗者',
-    ['mage'] = '法师',
-    ['nuker'] = '爆破者',
-    ['conjurer'] = '建造者',
-    ['rogue'] = '盗贼',
-    ['enchanter'] = '附魔师',
-    ['psyker'] = '灵能者',
-    ['curser'] = '诅咒者',
-    ['forcer'] = '推击者',
-    ['swarmer'] = '蜂群者',
-    ['voider'] = '虚空使者',
-    ['sorcerer'] = '术士',
-    ['mercenary'] = '佣兵',
-    ['explorer'] = '探险家',
-  }
   
   self.info_text = InfoText{group = main.current.tutorial}
   self.info_text:activate({
@@ -2031,27 +2030,7 @@ function ClassIcon:on_mouse_enter()
   ui_hover1:play{pitch = random:float(1.3, 1.5), volume = 0.5}
   self.spring:pull(0.2, 200, 10)
   local i, j, k, owned = class_set_numbers[self.class](self.units)
-  
-  -- 职业名称中文翻译
-  local class_name_map = {
-    ['warrior'] = '战士',
-    ['ranger'] = '游侠',
-    ['healer'] = '治疗者',
-    ['mage'] = '法师',
-    ['nuker'] = '爆破者',
-    ['conjurer'] = '建造者',
-    ['rogue'] = '盗贼',
-    ['enchanter'] = '附魔师',
-    ['psyker'] = '灵能者',
-    ['curser'] = '诅咒者',
-    ['forcer'] = '推击者',
-    ['swarmer'] = '蜂群者',
-    ['voider'] = '虚空使者',
-    ['sorcerer'] = '术士',
-    ['mercenary'] = '佣兵',
-    ['explorer'] = '探险家',
-  }
-  
+
   self.info_text = InfoText{group = main.current.ui}
   self.info_text:activate({
     {text = '[' .. class_color_strings[self.class] .. ']' .. (class_name_map[self.class] or self.class:capitalize()) .. '[fg] - 拥有: [yellow]' .. owned, font = pixul_font, alignment = 'center', height_multiplier = 1.25},
