@@ -1324,8 +1324,8 @@ function init()
     ['magnify'] = '[yellow]+20/35/50%[fg] 范围大小',
     ['echo_barrage'] = '[yellow]10/20/30%[fg] 几率在范围击中时创造[yellow]1/2/3[fg]个次级范围',
     ['unleash'] = '[fg]所有爆破者每秒获得[yellow]+1%[fg]范围大小和伤害',
-    ['reinforce'] = '[yellow]+10/20/30%[fg] 全局伤害、防御和攻速，如果拥有一个或更多附魔师',
-    ['payback'] = '[yellow]+2/5/8%[fg] 伤害给所有友军，当附魔师受到攻击时',
+    ['reinforce'] = '如果队伍中存在附魔师，[yellow]+10/20/30%[fg] 全局伤害、防御和攻速',
+    ['payback'] = '当附魔师受到攻击时，[yellow]+2/5/8%[fg] 伤害给所有友军',
     ['enchanted'] = '[yellow]+33/66/99%[fg] 攻击速度给随机单位，如果拥有两个或更多附魔师',
     ['freezing_field'] = '[fg]术士法术重复时创造减速敌人[yellow]50%[fg]持续[yellow]2[fg]秒的区域',
     ['burning_field'] = '[fg]术士法术重复时创造每秒造成[yellow]30[fg]伤害持续[yellow]2[fg]秒的区域',
@@ -1335,9 +1335,9 @@ function init()
     ['dividends'] = '[fg]雇佣兵造成[yellow]+X%[fg]伤害，X为当前拥有的金币数',
     ['berserking'] = '[fg]所有战士基于损失生命获得至多[yellow]+50/75/100%[fg]攻击速度',
     ['unwavering_stance'] = '[fg]所有战士每[yellow]5[fg]秒获得[yellow]+4/8/12%[fg]防御',
-    ['unrelenting_stance'] = '[yellow]+2/5/8%[fg] 防御给所有友军，当战士受到攻击时',
+    ['unrelenting_stance'] = '当战士受到攻击时，[yellow]+2/5/8%[fg] 防御给所有友军',
     ['blessing'] = '[yellow]+10/20/30%[fg] 治疗效果',
-    ['haste'] = '[yellow]+50%[fg] 移动速度，拾取治疗球后在[yellow]4[fg]秒内衰减',
+    ['haste'] = '拾取治疗球时 [yellow]+50%[fg] 移动速度，在[yellow]4[fg]秒内衰减',
     ['divine_barrage'] = '[yellow]20/40/60%[fg] 几率在拾取治疗球时释放弹跳弹幕',
     ['orbitism'] = '[yellow]+25/50/75%[fg] 灵能者轨道球移动速度',
     ['psyker_orbs'] = '[yellow]+1/2/4[fg] 总灵能者轨道球数量',
@@ -1365,7 +1365,7 @@ function init()
     ['lightning_strike'] = '[yellow]5/10/15%[fg] 几率弹道创造连锁闪电，造成[yellow]60/80/100%[fg]伤害',
     ['psycholeak'] = '[fg]位置[yellow]1[fg]每[yellow]10[fg]秒生成[yellow]1[fg]个灵能者轨道球',
     ['divine_blessing'] = '[fg]每[yellow]8[fg]秒生成[yellow]1[fg]个治疗球',
-    ['hardening'] = '[yellow]+150%[fg] 防御给所有友军持续[yellow]3[fg]秒，当友军死亡后',
+    ['hardening'] = '当友军死亡后，[yellow]+150%[fg] 防御给所有友军持续[yellow]3[fg]秒',
   }
 
   local ts = function(lvl, a, b, c) return '[' .. ylb1(lvl) .. ']' .. tostring(a) .. '[light_bg]/[' .. ylb2(lvl) .. ']' .. tostring(b) .. '[light_bg]/[' .. ylb3(lvl) .. ']' .. tostring(c) .. '[fg]' end
