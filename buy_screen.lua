@@ -1758,7 +1758,7 @@ function CharacterIcon:on_mouse_enter()
   self.spring:pull(0.2, 200, 10)
   self.info_text = InfoText{group = main.current.ui}
   self.info_text:activate({
-    {text = '[' .. character_color_strings[self.character] .. ']' .. (character_names[self.character] or self.character:capitalize()) .. '[fg] - 消耗: [yellow]' .. self.parent.cost, font = pixul_font, alignment = 'center', height_multiplier = 1.25},
+    {text = '[' .. character_color_strings[self.character] .. ']' .. (character_names[self.character] or self.character:capitalize()) .. '[fg] - 消耗: [yellow]' .. self.parent.cost .. '[fg] - 等级: [yellow]' .. character_tiers[self.character], font = pixul_font, alignment = 'center', height_multiplier = 1.25},
     {text = '[fg]职业: ' .. character_class_strings[self.character], font = pixul_font, alignment = 'center', height_multiplier = 1.25},
     {text = character_descriptions[self.character](1), font = pixul_font, alignment = 'center', height_multiplier = 2},
     {text = '[' .. (self.level == 3 and 'yellow' or 'light_bg') .. ']Lv.3 [' .. (self.level == 3 and 'fg' or 'light_bg') .. ']效果 - ' .. 
